@@ -19,7 +19,7 @@ public class Empresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name = "razao_social", nullable = false)
@@ -33,6 +33,10 @@ public class Empresa implements Serializable {
 
 	@Column(name = "data_atualizacao", nullable = false)
 	private Date dataAtualizacao;
+	
+	public Empresa() {
+		
+	}
 
 	public Long getId() {
 		return id;
