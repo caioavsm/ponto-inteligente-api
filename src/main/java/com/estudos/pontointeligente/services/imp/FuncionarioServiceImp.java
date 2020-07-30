@@ -1,6 +1,5 @@
 package com.estudos.pontointeligente.services.imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,5 @@ public class FuncionarioServiceImp implements FuncionarioService{
 		return Optional.ofNullable(funcionarioRepository.findByEmail(email));
 	}
 
-	@Override
-	public List<Funcionario> allFuncionarios() {
-		return funcionarioRepository.findAll();
-	}
-
+	
 }
