@@ -3,11 +3,13 @@ package com.estudos.pontointeligente.services.imp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.estudos.pontointeligente.entities.Empresa;
 import com.estudos.pontointeligente.repositories.EmpresaRepository;
 import com.estudos.pontointeligente.services.EmpresaService;
 
+@Service
 public class EmpresaServiceImp implements EmpresaService {
 
 	@Autowired

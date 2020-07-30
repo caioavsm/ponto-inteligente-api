@@ -62,7 +62,7 @@ public class CadastroPJController {
 		this.funcionarioService.buscarPorCpf(cadastroPjDto.getCpf())
 			.ifPresent(emp -> result.addError(new ObjectError("funcionario", "CPF já existe")));
 		
-		this.funcionarioService.buscarPorCpf(cadastroPjDto.getEmail())
+		this.funcionarioService.buscarPorEmail(cadastroPjDto.getEmail())
 			.ifPresent(emp -> result.addError(new ObjectError("funcionario", "E-mail já existe")));
 		
 	}
@@ -79,7 +79,7 @@ public class CadastroPJController {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setCpf(cadastroPJDto.getCpf());
 		funcionario.setNome(cadastroPJDto.getNome());
-		funcionario.setEmail(cadastroPJDto.getNome());
+		funcionario.setEmail(cadastroPJDto.getEmail());
 		funcionario.setPerfil(PerfilEnum.ROLE_ADMIN);
 		funcionario.setSenha(cadastroPJDto.getSenha());
 		

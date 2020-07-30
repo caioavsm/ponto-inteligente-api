@@ -2,6 +2,8 @@ package com.estudos.pontointeligente.services;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.estudos.pontointeligente.entities.Funcionario;
 
 public interface FuncionarioService {
