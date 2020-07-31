@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,5 +68,17 @@ public class EmpresaController {
 		empresaDto.setCnpj(empresa.getCnpj());
 		empresaDto.setRazaoSocial(empresa.getRazaoSocial());
 		return empresaDto;
+	}
+	
+	@GetMapping(value = "/listar/{cnpj}")
+	public ResponseEntity<Response<EmpresaDto>> listar(@PathVariable("cnpj") String cnpj) {
+		Response<EmpresaDto> response = new Response<EmpresaDto>();
+		Optional<Empresa> empresa = this.empresaService.buscarPorCnpj(cnpj);
+		if(!empresa.isPresent()) {
+			response.getErrors().add("Empresa não encontrar!" + cnpj);
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setData(this.converterEmpresaParaDto(empresa.get()));
+		return ResponseEntity.ok(response);
 	}
 }
