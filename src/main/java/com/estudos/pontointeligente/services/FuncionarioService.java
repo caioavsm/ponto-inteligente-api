@@ -11,5 +11,5 @@ public interface FuncionarioService {
 	Funcionario salvar(Funcionario funcionario);
 	Optional<Funcionario> buscarPorCpf(String cpf);
 	Optional<Funcionario> buscarPorEmail(String email);
-	
+	Optional<Funcionario> buscarPorId(Long id);
 }

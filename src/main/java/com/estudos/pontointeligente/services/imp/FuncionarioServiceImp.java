@@ -30,5 +30,10 @@ public class FuncionarioServiceImp implements FuncionarioService{
 		return Optional.ofNullable(funcionarioRepository.findByEmail(email));
 	}
 
+	@Override
+	public Optional<Funcionario> buscarPorId(Long id) {
+		return funcionarioRepository.findById(id);
+	}
+
 	
 }
