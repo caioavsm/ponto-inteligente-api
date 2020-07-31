@@ -1,6 +1,5 @@
 package com.estudos.pontointeligente.controller;
 
-import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -24,7 +23,7 @@ import com.estudos.pontointeligente.services.EmpresaService;
 import com.estudos.pontointeligente.services.FuncionarioService;
 
 @RestController
-@RequestMapping("/cadastrar-pf")
+@RequestMapping("/funcionario")
 @CrossOrigin(origins = "*")
 public class CadastroPFController {
 
@@ -37,7 +36,7 @@ public class CadastroPFController {
 	public CadastroPFController() {
 	}
 
-	@PostMapping
+	@PostMapping(value = "/cadastrar-pf")
 	public ResponseEntity<Response<CadastroPFDto>> cadastrar(@Valid @RequestBody CadastroPFDto cadastroPfDto,
 			BindingResult result) {
 		Response<CadastroPFDto> response = new Response<CadastroPFDto>();

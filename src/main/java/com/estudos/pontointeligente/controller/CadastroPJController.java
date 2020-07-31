@@ -21,7 +21,7 @@ import com.estudos.pontointeligente.services.EmpresaService;
 import com.estudos.pontointeligente.services.FuncionarioService;
 
 @RestController
-@RequestMapping("/cadastrar-pj")
+@RequestMapping("/funcionario")
 @CrossOrigin(origins = "*")
 public class CadastroPJController {
 	
@@ -34,7 +34,7 @@ public class CadastroPJController {
 	public CadastroPJController() {
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/cadastrar-pj")
 	public ResponseEntity<Response<CadastroPJDto>> cadastrar(@Valid @RequestBody CadastroPJDto cadastroPjDto,
 			BindingResult result) {
 		Response<CadastroPJDto> response = new Response<CadastroPJDto>();
