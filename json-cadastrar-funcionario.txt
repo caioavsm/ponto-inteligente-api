@@ -1,0 +1,8 @@
+{
+    "nome": "Caio Alves Moreira",
+    "email": "caio.alves.moreira@gmail.com",
+    "senha": "25031996",
+    "cpf": "40346467055",
+    "razaoSocial": "Accenture",
+    "cnpj": "92839343000162"
+}
