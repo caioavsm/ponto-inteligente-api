@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -70,8 +71,8 @@ public class EmpresaController {
 		return empresaDto;
 	}
 	
-	@GetMapping(value = "/listar/{cnpj}")
-	public ResponseEntity<Response<EmpresaDto>> listar(@PathVariable("cnpj") String cnpj) {
+	@GetMapping(value = "/{cnpj}")
+	public ResponseEntity<Response<EmpresaDto>> consultar(@PathVariable("cnpj") String cnpj) {
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
 		Optional<Empresa> empresa = this.empresaService.buscarPorCnpj(cnpj);
 		if(!empresa.isPresent()) {
@@ -81,4 +82,19 @@ public class EmpresaController {
 		response.setData(this.converterEmpresaParaDto(empresa.get()));
 		return ResponseEntity.ok(response);
 	}
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<Response<Empresa>> listar() {
+		Response<Empresa> responseEmpresa = new Response<Empresa>();
+		Page<Empresa> pageEmpresa = this.empresaService.listar();
+		
+		if(pageEmpresa.isEmpty() || pageEmpresa.getNumberOfElements() == 0) {
+			responseEmpresa.getErrors().add("Nenhuma Empresa cadastrada!");
+			return ResponseEntity.badRequest().body(responseEmpresa);
+		}
+		
+		responseEmpresa.setPaginacao(pageEmpresa);
+		return ResponseEntity.ok(responseEmpresa);
+	}	
+	
 }

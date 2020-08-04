@@ -27,7 +27,7 @@ import com.estudos.pontointeligente.services.FuncionarioService;
 @CrossOrigin(origins = "*")
 public class FuncionarioController {
 
-	@Autowired
+	@Autowired 
 	private FuncionarioService funcionarioService;
 
 	@PutMapping(value = "/atualizar/{id}")
