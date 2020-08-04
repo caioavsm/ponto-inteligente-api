@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -28,18 +29,6 @@ public class FuncionarioController {
 
 	@Autowired
 	private FuncionarioService funcionarioService;
-
-	@GetMapping(value = "/listar/{cpf}")
-	public ResponseEntity<Response<Funcionario>> listar(@PathVariable("cpf") String cpf) {
-		Response<Funcionario> response = new Response<Funcionario>();
-		Optional<Funcionario> funcionario = this.funcionarioService.buscarPorCpf(cpf);
-		if (!funcionario.isPresent()) {
-			response.getErrors().add("Funcionário não encontrado!" + cpf);
-			return ResponseEntity.badRequest().body(response);
-		}
-		response.setData(funcionario.get());
-		return ResponseEntity.ok(response);
-	}
 
 	@PutMapping(value = "/atualizar/{id}")
 	public ResponseEntity<Response<FuncionarioDto>> atualizar(@PathVariable("id") Long id,
@@ -80,5 +69,42 @@ public class FuncionarioController {
 		funcionarioDto.setNome(funcionario.getNome());
 		funcionarioDto.setId(funcionario.getId());
 		return funcionarioDto;
+	}	
+
+	@GetMapping(value = "/{cpf}")
+	public ResponseEntity<Response<Funcionario>> consultar(@PathVariable("cpf") String cpf) {
+		Response<Funcionario> response = new Response<Funcionario>();
+		Optional<Funcionario> funcionario = this.funcionarioService.buscarPorCpf(cpf);
+		if (!funcionario.isPresent()) {
+			response.getErrors().add("Funcionário não encontrado!" + cpf);
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setData(funcionario.get());
+		return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Response<Funcionario>> consultarPorId(@PathVariable("id") Long id) {
+		Response<Funcionario> response = new Response<Funcionario>();
+		Optional<Funcionario> funcionario = this.funcionarioService.buscarPorId(id);
+		if (!funcionario.isPresent()) {
+			response.getErrors().add("Funcionário não encontrado!" + id);
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setData(funcionario.get());
+		return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<Response<Funcionario>> listar() {
+		Response<Funcionario> response = new Response<Funcionario>();
+		Page<Funcionario> pageFuncionario = this.funcionarioService.listar();
+		
+		if(pageFuncionario.isEmpty() || pageFuncionario.getNumberOfElements() == 0) {
+			response.getErrors().add("Lista de funcionários vazia!");
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setPaginacao(pageFuncionario);
+		return ResponseEntity.ok(response);
 	}
 }
