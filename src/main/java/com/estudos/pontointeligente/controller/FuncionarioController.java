@@ -71,7 +71,7 @@ public class FuncionarioController {
 		return funcionarioDto;
 	}	
 
-	@GetMapping(value = "/{cpf}")
+	@GetMapping(value = "/cpf/{cpf}")
 	public ResponseEntity<Response<Funcionario>> consultar(@PathVariable("cpf") String cpf) {
 		Response<Funcionario> response = new Response<Funcionario>();
 		Optional<Funcionario> funcionario = this.funcionarioService.buscarPorCpf(cpf);
